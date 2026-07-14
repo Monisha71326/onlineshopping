@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-xxxxx'
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['onlineshopping-ybod.onrender.com', 'localhost', '127.0.0.1']
 
 # APPLICATIONS
 INSTALLED_APPS = [
