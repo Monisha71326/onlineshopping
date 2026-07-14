@@ -7,6 +7,7 @@ class Enquiry(models.Model):
     email = models.EmailField()
     phone = models.CharField(max_length=15)
     message = models.TextField(blank=True)
+    photo = CloudinaryField('photo', blank=True, null=True)
 
     def __str__(self):
         return self.name

@@ -27,12 +27,8 @@ def enquiry(request):
 @api_view(['GET'])
 def get_enquiries(request):
     enquiries = Enquiry.objects.all().order_by('-id')
-    data = [
-        {"id": e.id, "name": e.name, "email": e.email, "phone": e.phone, "message": e.message}
-        for e in enquiries
-    ]
-    return Response(data)
-
+    serializer = EnquirySerializer(enquiries, many=True)
+    return Response(serializer.data)
 
 @csrf_exempt
 @api_view(['PUT', 'DELETE'])

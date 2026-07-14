@@ -4,9 +4,20 @@ import cloudinary.uploader
 
 
 class EnquirySerializer(serializers.ModelSerializer):
+    photo_url = serializers.SerializerMethodField()
+    photo = serializers.ImageField(required=False, allow_null=True)
+
     class Meta:
         model = Enquiry
-        fields = ["id", "name", "email", "phone", "message"]
+        fields = ["id", "name", "email", "phone", "message", "photo", "photo_url"]
+        extra_kwargs = {
+            "photo": {"write_only": True, "required": False}
+        }
+
+    def get_photo_url(self, obj):
+        if obj.photo:
+            return obj.photo.url
+        return None
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -36,9 +47,6 @@ class ProductSerializer(serializers.ModelSerializer):
             except Exception:
                 pass
         return super().update(instance, validated_data)
-
-
-# ✅ CustomerSerializer தேவையில்லை — remove பண்ணிட்டோம்
 
 
 # ✅ Order — Enquiry-யே customer
