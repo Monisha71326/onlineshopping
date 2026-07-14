@@ -1,0 +1,7 @@
+DEBUG=True 
+SECRET_KEY=my-secret-key-12345 
+MYSQLDATABASE=railway 
+MYSQLUSER=root 
+MYSQLPASSWORD=qOouLuPNToZdFQUKEBmKAEoJUsoBkUSv 
+MYSQLHOST=hayabusa.proxy.rlwy.net 
+MYSQLPORT=12545
