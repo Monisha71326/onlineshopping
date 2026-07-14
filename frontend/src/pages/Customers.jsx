@@ -1,8 +1,8 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const API = "http://127.0.0.1:8000/api/enquiries/";
+const API_BASE = window.location.hostname === "localhost" ? "http://localhost:8000/api" : "/api";
+const API = `${API_BASE}/enquiries/`;
 
 function Customers() {
   const [customers, setCustomers] = useState([]);
@@ -37,7 +37,7 @@ function Customers() {
       formData.append("message", editCustomer.message || "");
       if (editCustomer.newPhoto) formData.append("photo", editCustomer.newPhoto);
 
-      const res = await fetch(`http://127.0.0.1:8000/api/enquiry/${editCustomer.id}/`, {
+      const res = await fetch(`${API_BASE}/enquiry/${editCustomer.id}/`, {
         method: "PUT",
         body: formData,
       });
@@ -50,7 +50,7 @@ function Customers() {
 
   async function handleDelete(id) {
     try {
-     const res = await fetch(`http://127.0.0.1:8000/api/enquiry/${id}/`, { method: "DELETE" });
+     const res = await fetch(`${API_BASE}/enquiry/${id}/`, { method: "DELETE" });
       if (res.ok) { setCustomers((prev) => prev.filter((c) => c.id !== id)); setDeleteId(null); }
       else alert("Delete failed!");
     } catch (err) { alert("Network error!"); }
@@ -337,5 +337,3 @@ function Customers() {
 }
 
 export default Customers;
-
-
