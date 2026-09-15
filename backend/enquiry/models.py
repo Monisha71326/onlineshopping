@@ -1,5 +1,4 @@
 from django.db import models
-from cloudinary.models import CloudinaryField
 
 
 class Enquiry(models.Model):
@@ -7,7 +6,7 @@ class Enquiry(models.Model):
     email = models.EmailField()
     phone = models.CharField(max_length=15)
     message = models.TextField(blank=True)
-    photo = CloudinaryField('photo', blank=True, null=True)
+    photo = models.ImageField(upload_to='enquiry_photos/', blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -29,7 +28,7 @@ class Product(models.Model):
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='other')
     price = models.PositiveIntegerField(default=0)
     stock = models.PositiveIntegerField(default=0)
-    image = CloudinaryField('image', blank=True, null=True)
+    image = models.ImageField(upload_to='product_images/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -43,7 +42,7 @@ class Product(models.Model):
 
 
 class Order(models.Model):
-    customer = models.ForeignKey(Enquiry, on_delete=models.CASCADE)  # ✅ Enquiry FK
+    customer = models.ForeignKey(Enquiry, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     qty = models.PositiveIntegerField(default=1)
     amount = models.PositiveIntegerField(default=0)
