@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-fallback-key')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['onlineshopping-ybod.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['onlineshopping-ybod.onrender.com', 'onlineshopping-production-550b.up.railway.app', 'localhost', '127.0.0.1']
 
 # APPLICATIONS
 INSTALLED_APPS = [
