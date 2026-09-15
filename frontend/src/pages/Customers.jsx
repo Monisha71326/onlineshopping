@@ -67,6 +67,13 @@ function Customers() {
     return str.length > n ? str.slice(0, n) + "…" : str;
   }
 
+  function getPhotoUrl(photo) {
+    if (!photo) return null;
+    return photo.startsWith("http")
+      ? photo
+      : `https://onlineshopping-production-550b.up.railway.app${photo}`;
+  }
+
   const filtered = customers.filter((c) => {
     const q = search.toLowerCase();
     return (
@@ -76,7 +83,6 @@ function Customers() {
     );
   });
 
-  // ── Shared th style ──
   const th = {
     padding: "11px 10px",
     fontSize: 11,
@@ -87,7 +93,6 @@ function Customers() {
     textAlign: "left",
   };
 
-  // ── Shared td style ──
   const td = {
     padding: "11px 10px",
     fontSize: 13,
@@ -102,7 +107,6 @@ function Customers() {
   return (
     <div className="customers-page">
 
-      {/* Header */}
       <div className="customers-header">
         <div>
           <h1 className="customers-title">Customers</h1>
@@ -115,7 +119,6 @@ function Customers() {
         </button>
       </div>
 
-      {/* Stat Cards */}
       {!loading && (
         <div className="stats-row">
           <div className="stat-card">
@@ -133,7 +136,6 @@ function Customers() {
         </div>
       )}
 
-      {/* Search */}
       {!loading && (
         <div className="search-wrap">
           <span className="search-icon">🔍</span>
@@ -150,7 +152,6 @@ function Customers() {
         </div>
       )}
 
-      {/* Table */}
       {loading ? (
         <div className="state-box"><p className="state-text">Fetching customers…</p></div>
       ) : filtered.length === 0 ? (
@@ -163,12 +164,12 @@ function Customers() {
         <div className="table-wrap">
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, tableLayout: "fixed" }}>
             <colgroup>
-              <col style={{ width: "20%" }} /> {/* Name */}
-              <col style={{ width: "22%" }} /> {/* Email */}
-              <col style={{ width: "13%" }} /> {/* Phone */}
-              <col style={{ width: "20%" }} /> {/* Message */}
-              <col style={{ width: "8%" }}  /> {/* Photo */}
-              <col style={{ width: "17%" }} /> {/* Actions */}
+              <col style={{ width: "20%" }} />
+              <col style={{ width: "22%" }} />
+              <col style={{ width: "13%" }} />
+              <col style={{ width: "20%" }} />
+              <col style={{ width: "8%" }}  />
+              <col style={{ width: "17%" }} />
             </colgroup>
             <thead>
               <tr style={{ background: "#141414", borderBottom: "1px solid #2a2a2a" }}>
@@ -186,7 +187,6 @@ function Customers() {
                   onMouseEnter={(e) => e.currentTarget.style.background = "#1e1e1e"}
                   onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
                 >
-                  {/* Name */}
                   <td style={td}>
                     <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                       <div className="avatar">{getInitials(c.name)}</div>
@@ -196,39 +196,33 @@ function Customers() {
                     </div>
                   </td>
 
-                  {/* Email */}
                   <td style={td} title={c.email}>
                     <span style={{ color: c.email ? "#d0d0d0" : "#444" }}>
                       {truncate(c.email, 22) || "—"}
                     </span>
                   </td>
 
-                  {/* Phone */}
                   <td style={td}>
                     <span style={{ color: c.phone ? "#d0d0d0" : "#444" }}>
                       {c.phone || "—"}
                     </span>
                   </td>
 
-                  {/* Message */}
                   <td style={td} title={c.message}>
                     <span style={{ color: c.message ? "#d0d0d0" : "#444" }}>
                       {truncate(c.message, 25) || "—"}
                     </span>
                   </td>
 
-                  {/* Photo */}
-<td style={{ ...td, textAlign: "center" }}>
-  {c.photo
-    ? <img src={c.photo} alt={c.name}
-        style={{ width: 34, height: 34, borderRadius: 8, objectFit: "cover", border: "1px solid #2a2a2a", display: "block", margin: "0 auto" }} />
-    : <span style={{ color: "#444" }}>—</span>}
-</td>
+                  <td style={{ ...td, textAlign: "center" }}>
+                    {c.photo
+                      ? <img src={getPhotoUrl(c.photo)} alt={c.name}
+                          style={{ width: 34, height: 34, borderRadius: 8, objectFit: "cover", border: "1px solid #2a2a2a", display: "block", margin: "0 auto" }} />
+                      : <span style={{ color: "#444" }}>—</span>}
+                  </td>
 
-                  {/* Actions */}
                   <td style={{ ...td, overflow: "visible" }}>
                     <div style={{ display: "flex", gap: 5, alignItems: "center" }}>
-                      {/* Edit */}
                       <button
                         onClick={() => setEditCustomer({ ...c, newPhoto: null })}
                         style={{
@@ -244,7 +238,6 @@ function Customers() {
                         <i className="ti ti-pencil" style={{ fontSize: 13 }} /> Edit
                       </button>
 
-                      {/* Delete */}
                       <button
                         onClick={() => setDeleteId(c.id)}
                         style={{
@@ -272,7 +265,6 @@ function Customers() {
         </div>
       )}
 
-      {/* EDIT MODAL */}
       {editCustomer && (
         <div className="modal-overlay" onClick={() => setEditCustomer(null)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
@@ -313,7 +305,6 @@ function Customers() {
         </div>
       )}
 
-      {/* DELETE CONFIRM */}
       {deleteId && (
         <div className="modal-overlay" onClick={() => setDeleteId(null)}>
           <div className="modal" style={{ maxWidth: 340, textAlign: "center" }} onClick={(e) => e.stopPropagation()}>
