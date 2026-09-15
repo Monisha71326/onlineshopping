@@ -7,7 +7,7 @@ function Sidebar() {
         <div className="logo-icon">
           <i className="ti ti-shopping-bag" />
         </div>
-        <span className="logo-text">MONI<span>SHA</span></span>
+       <span className="logo-text">VIJAYA<span>LAKSHMI</span></span>
       </div>
 
       <nav className="sidebar-nav">
