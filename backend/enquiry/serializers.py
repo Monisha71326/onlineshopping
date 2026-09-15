@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from .models import Enquiry, Product, Order  # ✅ Customer remove
-import cloudinary.uploader
 
 
 class EnquirySerializer(serializers.ModelSerializer):
@@ -38,15 +37,6 @@ class ProductSerializer(serializers.ModelSerializer):
         if obj.image:
             return obj.image.url
         return None
-
-    def update(self, instance, validated_data):
-        new_image = validated_data.get("image", None)
-        if new_image and instance.image:
-            try:
-                cloudinary.uploader.destroy(instance.image.public_id)
-            except Exception:
-                pass
-        return super().update(instance, validated_data)
 
 
 # ✅ Order — Enquiry-யே customer
