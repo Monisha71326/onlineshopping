@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const API_BASE = window.location.hostname === "localhost" ? "http://localhost:8000/api" : "/api";
+const API_BASE = window.location.hostname === "localhost" 
+  ? "http://localhost:8000/api" 
+  : "https://onlineshopping-production-550b.up.railway.app/api";
 
 function AddCustomer() {
   const location = useLocation();
