@@ -2,9 +2,8 @@
 
   // ── CONFIG — appo deploy panna, itha update pannu ──────────────
   const API_BASE = window.location.hostname === "localhost"
-  ? "http://localhost:8000/api"   // neenga local la irundha idha use pண்ணும்
-  : "/api";                        // Render la irundha idha use pண்ணும்
-
+? "http://localhost:8000/api"
+: "https://onlineshopping-production-550b.up.railway.app/api";
   const styles = `
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
