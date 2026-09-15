@@ -1,6 +1,8 @@
     import { useEffect, useState } from "react";
 
-    const API_BASE = window.location.hostname === "localhost" ? "http://localhost:8000/api" : "/api";
+   const API_BASE = window.location.hostname === "localhost" 
+  ? "http://localhost:8000/api" 
+  : "https://onlineshopping-production-550b.up.railway.app/api";
     async function apiFetch(path, options = {}) {
       const res = await fetch(`${API_BASE}${path}`, options);
       if (!res.ok) {
