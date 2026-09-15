@@ -20,9 +20,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'cloudinary',
-    'cloudinary_storage',
-
     'corsheaders',
     'rest_framework',
 
@@ -34,7 +31,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',   # 🆕 ADD பண்ணுங்க (React build serve பண்ண)
+    'whitenoise.middleware.WhiteNoiseMiddleware',   # React build serve பண்ண
 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -46,11 +43,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'backend.urls'
 
-# TEMPLATES — 🆕 React build index.html point பண்ணுங்க
+# TEMPLATES — React build index.html point பண்ணுங்க
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR.parent / 'frontend' / 'build'],   # 🆕
+        'DIRS': [BASE_DIR.parent / 'frontend' / 'build'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -64,7 +61,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
-# DATABASE — 🆕 Railway MySQL (env vars la இருந்து vaanguрோம்)
+# DATABASE — Railway MySQL (env vars la இருந்து vaanguрோம்)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -75,38 +72,29 @@ DATABASES = {
         'PORT': os.getenv('MYSQLPORT'),
     }
 }
+
 # LANGUAGE / TIME
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# STATIC — 🆕 React build/static folder point பண்ணுங்க
+# STATIC — React build/static folder point பண்ணுங்க
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR.parent / 'frontend' / 'build' / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# MEDIA
+# MEDIA — local folder storage
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# CLOUDINARY — 🆕 env vars la இருந்து
-import cloudinary
-
-cloudinary.config(
-    cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME'),
-    api_key=os.getenv('CLOUDINARY_API_KEY'),
-    api_secret=os.getenv('CLOUDINARY_API_SECRET'),
-)
-
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
+# STORAGE — local filesystem
 STORAGES = {
     "default": {
-        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",  # 🆕 changed
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
 
